@@ -1,0 +1,244 @@
+<!doctype html>
+<html>
+<head>
+    <title>Rock-Paper-Scissors Game</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+			font-weight: 300;
+		}
+		
+		#logo {
+			float:left;
+			margin-left:20px;
+			color:blue;
+		}
+		
+		#scores {
+			float:right;
+			margin:10px 40px 0 0;
+		}
+		
+		#winlbl {
+			float:right;
+			margin:0 5px 5px 0;
+			padding:5px;
+			font-weight:bold;
+			width:50px;
+			text-align:center;
+		}
+		
+		#tielbl {
+			float:right;
+			margin:0 5px 5px 0;
+			padding:5px;
+			font-weight:bold;
+			width:50px;
+			text-align:center;
+		}
+		
+		#losslbl {
+			float:right;
+			margin:0 2px 5px 0;
+			padding:5px;
+			font-weight:bold;
+			width:50px;
+			text-align:center;
+		}
+		
+		#wins {
+			float:right;
+			width:60px;
+			height:50px;
+			background-color:black;
+			margin-right:5px;
+			color:yellow;
+			font-weight:bold;
+			font-size:150%;
+			text-align:center;
+			line-height:50px;
+		}
+		
+		#ties {
+			float:right;
+			width:60px;
+			height:50px;
+			background-color:black;
+			margin-right:5px;
+			color:yellow;
+			font-weight:bold;
+			font-size:150%;
+			text-align:center;
+			line-height:50px;
+		}
+		
+		#losses {
+			float:right;
+			width:60px;
+			height:50px;
+			background-color:black;
+			margin-right:2px;
+			color:yellow;
+			font-weight:bold;
+			font-size:150%;
+			text-align:center;
+			line-height:50px;
+		}
+		
+		#instructions {
+			clear:both;
+			margin: 0 0 10px 20px;
+			padding:10px;
+			width:50%;
+			border:1px solid grey;
+		}
+		
+		#rock {
+			margin-left:20px;
+		}
+		
+		#paper {
+			margin-left:20px;
+		}
+		
+		#scissors {
+			margin-left:20px;
+		}
+		
+		#reset {
+			background-color:#968E8E;
+			font-weight:bold;
+			margin-left:40px;
+			padding:5px;
+			border-radius:10px;
+		}
+	
+	
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="logo">
+			<h1>Classic Rock-Paper-Scissors Game</h1>
+		</div>
+		
+		<div id="scores">
+			<div id="losslbl">Losses</div>  <div id="tielbl">Ties</div> <div id="winlbl">Wins</div> <br />
+			<div id="losses">0</div>  <div id="ties">0</div>   <div id="wins">0</div>
+		</div>
+		
+		<div id="instructions">
+			<p>The "rock" beats scissors, the "scissors" beat paper and the "paper" beats rock; if you and the computer throw the same shape, the game is tied.</p>
+		</div>
+		<br />
+		
+		<div>
+			 <button type="button" id="rock">Rock</button>   <button type="button" id="paper">Paper</button>   <button type="button" id="scissors">Scissors</button> 
+			 <button type="button" id="reset">Reset</button> 
+		</div>
+	
+		
+	</div>
+	
+	<script type="text/javascript">
+		var userChoice = "", computerChoice = "", result = "";
+		var wins = 0, losses = 0, ties = 0;
+	
+		var compChoice = function() {
+			var choice = Math.random();
+			if (choice < 0.34) {
+				return "rock";
+			} else if(choice <= 0.67) {
+				return "paper";
+			} else {
+				return "scissors";
+			} 
+		};
+		
+		var compare = function(choice1, choice2) {
+			if (choice1 === choice2) {
+				ties += 1;
+				return "The result is a tie!";
+			}  else if (choice1 === "rock") {
+				if(choice2 === "scissors") {
+					wins += 1;
+					return "rock wins!";    
+				} else {
+					losses += 1;
+					return "paper wins!";   
+				}
+			} else if (choice1 === "paper") {
+				if (choice2 === "rock") {
+					wins += 1;
+					return "paper wins!";    
+				} else {
+				    losses += 1;
+					return "scissors wins!";   
+				}
+			} else if (choice1 === "scissors") {
+				if (choice2 === "rock") {
+					losses += 1;
+					return "rock wins!";    
+				} else {
+					wins += 1;
+					return "scissors wins!";   
+				}
+			}
+		};
+		
+		var updateScores = function() {
+			document.getElementById("wins").innerHTML = wins;
+			document.getElementById("ties").innerHTML = ties;
+			document.getElementById("losses").innerHTML = losses;
+		};
+		
+		document.getElementById("reset").onclick=function() {
+			wins = ties = losses = 0;
+			document.getElementById("wins").innerHTML = wins;
+			document.getElementById("ties").innerHTML = ties;
+			document.getElementById("losses").innerHTML = losses;
+		};
+	
+	
+		document.getElementById("rock").onclick=function() {
+			userChoice = "rock";
+			computerChoice = compChoice();
+			result = "You chose " + userChoice + ". \r\n";
+			result += "The computer chose " + computerChoice + ". \r\n";
+			result += compare(userChoice, computerChoice);
+			updateScores();
+			alert(result); 
+		};
+		
+		document.getElementById("paper").onclick=function() {
+			userChoice = "paper";
+			computerChoice = compChoice();
+			result = "You chose " + userChoice + ". \r\n";
+			result += "The computer chose " + computerChoice + ". \r\n";
+			result += compare(userChoice, computerChoice);
+			updateScores();
+			alert(result); 
+		};
+		
+		document.getElementById("scissors").onclick=function() {
+			userChoice = "scissors";
+			computerChoice = compChoice();
+			result = "You chose " + userChoice + ". \r\n";
+			result += "The computer chose " + computerChoice + ". \r\n";
+			result += compare(userChoice, computerChoice);
+			updateScores();
+			alert(result); 
+		};
+	
+	
+	</script >
+</body>
+</html>

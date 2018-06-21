@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+    <title>Fizz Buzz Demo</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	
+	<style>
+		body {
+			margin:0;
+			padding:0;
+			font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+			font-weight: 300;
+		}
+		
+		#logo {
+			margin-left:20px;
+			color:blue;
+		}
+		
+		#instructions {
+			margin: 0 0 10px 20px;
+			padding:10px;
+			width:50%;
+			border:1px solid grey;
+		}
+		
+		form {
+			background-color:#DADCEA;
+			margin-left:20px;
+			padding:20px;
+			width: 100%;
+			height:330px;
+		}
+		
+		label {
+			width:100px;
+			float:left;
+		}
+	
+		input {
+			width:60px;
+			text-align: center;
+		}
+		
+		
+		#clear {
+			margin-left:5px;
+			width:80px;
+		}
+		
+		#calc {
+			width:80px;
+		}
+	
+	
+	</style>
+</head>
+
+<body>
+	<div id="wrapper">
+		<div id="logo">
+			<h1>Fizz Buzz Demonstration</h1>
+		</div>
+		
+		<div id="instructions">
+			<p>Select two numbers. The application will print the numbers from 1 to 100, but for multiples of the first number it will print &quot;<i>Fizz</i>&quot;. For numbers that are multiples of the second number it will print &quot;Buzz&quot; instead. For numbers that are multiples of both of the selected numbers it will print &quot;FizzBuzz&quot;.</p>
+		</div>
+	
+		<form>
+			<label for="number1">Number 1: </label>
+			<input type="text" name="number" id="number1"><br/><br/>
+			
+			<label for="number2">Number 2: </label>
+			<input type="text" name="number" id="number2"><br/><br/>
+			
+			<textarea id="results" rows="10" cols="20"></textarea><br/><br/>
+	
+			<input type="button" id="calc" value="Calculate">
+			<input type="button" id="clear" value="Clear">
+			
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+		
+		document.getElementById("calc").onclick=function() {
+			var result = "";
+			var r1, r2, value, i;
+			var number1 = Number(document.getElementById("number1").value);  //Get the text value from the text fields and use Number() to convert. 
+			var number2 = Number(document.getElementById("number2").value);  //Returns NaN if there is a problem. I Could have used this field as type number but
+																			 //IE9 doesn't recognize it.
+			
+			if (number1 === "NaN" || number2 === "NaN") {
+				alert("Please enter valid numbers!");
+			} else {
+				if (number1 >= 1 && number1 <= 100 && number2 >= 1 && number2 <= 100) {
+					for (i = 1; i <=100; i++) {     // Here we loop through the numbers 1 to 100.
+						if (i % (number1 * number2) === 0) {
+							value = "FizzBuzz";
+						} else if ( i % number1 === 0) {
+							value = "Fizz";
+						} else if ( i % number2 === 0) {
+							value = "Buzz";
+						} else {
+							value = i;
+						}
+						
+						result += value + "\r\n";
+					}
+				} else {
+					alert("Please enter numbers that are within 1-100.");
+				}
+
+				document.getElementById("results").value = result;
+			}
+		}
+	
+	
+		document.getElementById("clear").onclick=function() {
+			document.getElementById("results").value = "";
+		}
+	
+	</script >
+</body>
+</html>
